@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {NgRedux, select} from '@angular-redux/store';
+import {Observable} from 'rxjs/Observable';
+import {IAppState} from './reducers';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @select('count') count: Observable<number>;
   title = 'app';
+
+  constructor(private ngRedux: NgRedux<IAppState>) {
+  }
+
+  onClick() {
+    this.ngRedux.dispatch({type: 'inc'});
+  }
 }
